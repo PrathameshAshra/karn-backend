@@ -19,13 +19,13 @@ exports.create = (req, res) => {
    * Create a user
    */
   const user = new User({
+    username: req.body.email,
+    githubLink: req.body.password,
+    jobRole: req.body.jobRole,
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password, 10),
-    name: req.body.name,
-    age: req.body.age,
-    gender: req.body.gender,
+    createdAt: req.body.createdAt,
     isActive: req.body.isActive,
-    userType: req.body.userType,
   });
   /**
    * Save user to database

@@ -8,6 +8,12 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  githubLink: {
+    type: String,
+  },
+  jobRole: {
+    type: String,
+  },
   email: {
     type: String,
     required: true
@@ -19,7 +25,12 @@ const UserSchema = mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now()
+  },
+  isActive: {
+    type: Boolean,
+    default: null
   }
+
 });
 
 // export model user with UserSchema

@@ -80,9 +80,9 @@ router.post(
   }
 );
 
-router.post(
+router.post( 
   "/login",
-  [
+  [ 
     check("email", "Please enter a valid email").isEmail(),
     check("password", "Please enter a valid password").isLength({
       min: 6
@@ -147,14 +147,14 @@ router.post(
  * @param - /user/me
  */
 
-router.get("/me", auth, async (req, res) => {
+router.post("/me", auth, async (req, res) => {
   try {
     // request.user is getting fetched from Middleware after token authentication
-    const user = await User.findById(req.user.id);
+    const user = await  User.findById(req.user.id);
     res.json(user);
   } catch (e) {
     res.send({ message: "Error in Fetching user" });
   }
 });
 
-module.exports = router;
+module.exports = router; 
