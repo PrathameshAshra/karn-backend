@@ -5,24 +5,20 @@ const jwt = require("jsonwebtoken");
 const router = express.Router();
 const auth = require("../middleware/auth");
 
-const User = require('../models/user_model');
+const Team = require('../models/team_model');
 
 /**
  * @method - POST
- * @param - /signup
- * @description - User SignUp
+ * @param - /
+ * @description - Creates Team
  */
 
 router.post(
-  "/signup",
+  "/",
   [
-    check("username", "Please Enter a Valid Username")
+    check("name", "Please Enter a Valid Team Name")
       .not()
-      .isEmpty(),
-    check("email", "Please enter a valid email").isEmail(),
-    check("password", "Please enter a valid password").isLength({
-      min: 6
-    })
+      .isEmpty()
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -32,7 +28,7 @@ router.post(
       });
     }
 
-    const { username, email, password } = req.body;
+    const { name, users, createdBy,isActive } = req.body;
     try {
       let user = await User.findOne({
         email
@@ -147,7 +143,7 @@ router.post(
  * @param - /user/me
  */
 
-router.get("/me", auth, async (req, res) => {
+router.post("/me", auth, async (req, res) => {
   try {
     // request.user is getting fetched from Middleware after token authentication
     const user = await  User.findById(req.user.id);
